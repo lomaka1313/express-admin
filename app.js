@@ -134,7 +134,7 @@ function initSettings (args) {
         var fpath = args.custom[key].events;
         if (fpath) break;
     }
-    var events = fpath ? require(fpath) : {};
+	var events = fpath ? require(path.resolve(fpath)) : {};
     if (!events.hasOwnProperty('preSave'))
         events.preSave = function (req, res, args, next) {next()};
     if (!events.hasOwnProperty('postSave'))
@@ -194,7 +194,7 @@ function initServer (args) {
         .set('view engine', 'html')
         .engine('html', consolidate.hogan)
 
-        .use(logger('dev'))
+        // .use(logger('dev'))
         .use(bodyParser.json())
         .use(bodyParser.urlencoded({extended: true}))
         .use(multipart())
@@ -231,7 +231,7 @@ function initServer (args) {
         res.locals._admin = args;
 
         // i18n
-        var lang = req.cookies.lang || 'en';
+		var lang = req.cookies.lang || 'ru';
         res.cookie('lang', lang, {path: '/', maxAge: 900000000});
         moment.locale(lang == 'cn' ? 'zh-cn' : lang);
 
