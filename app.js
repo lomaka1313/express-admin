@@ -259,8 +259,8 @@ function initServer (args) {
         var have = false;
         for (var key in args.custom) {
             var _app = args.custom[key].app;
-            if (_app && _app.path && fs.existsSync(_app.path)) {
-                var view = require(_app.path);
+            if (_app && _app.path && fs.existsSync(path.resolve(_app.path))) {
+                var view = require(path.resolve(_app.path));
                 app.use(view);
                 have = true;
             }
